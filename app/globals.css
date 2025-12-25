@@ -422,3 +422,75 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 6px 25px rgba(201, 162, 39, 0.6);
 }
+
+/* Calendar Options Modal */
+.calendar-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.calendar-modal {
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+  border: 2px solid #c9a227;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(201, 162, 39, 0.3);
+}
+
+.calendar-modal h3 {
+  font-family: var(--font-cinzel), serif;
+  color: #c9a227;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+}
+
+.calendar-option-btn {
+  width: 100%;
+  background: linear-gradient(145deg, #c9a227, #a07d1c);
+  color: #0a0a0a;
+  border: none;
+  padding: 15px 20px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.calendar-option-btn:hover, .calendar-option-btn:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(201, 162, 39, 0.4);
+}
+
+.calendar-cancel-btn {
+  width: 100%;
+  background: transparent;
+  color: #888;
+  border: 1px solid #444;
+  padding: 12px 20px;
+  font-family: var(--font-cormorant), serif;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 5px;
+}
+
+.calendar-cancel-btn:hover {
+  border-color: #666;
+  color: #aaa;
+}

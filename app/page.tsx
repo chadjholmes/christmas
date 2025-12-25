@@ -76,7 +76,22 @@ export default function Home() {
     }
   }
 
-  const addToCalendar = () => {
+  const [showCalendarOptions, setShowCalendarOptions] = useState(false)
+
+  const addToGoogleCalendar = () => {
+    const title = encodeURIComponent('The Phantom of the Opera')
+    const description = encodeURIComponent('A special night at the opera!')
+    const location = encodeURIComponent('')
+    const startDate = '20260412T183000'
+    const endDate = '20260412T213000'
+
+    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${description}&location=${location}`
+
+    window.open(googleUrl, '_blank')
+    setShowCalendarOptions(false)
+  }
+
+  const addToAppleCalendar = () => {
     const title = 'The Phantom of the Opera'
     const description = 'A special night at the opera!'
     const location = ''
@@ -97,23 +112,14 @@ export default function Home() {
       'END:VCALENDAR'
     ].join('\r\n')
 
-    // Create blob and download
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
-    const url = URL.createObjectURL(blob)
+    // Use data URI for better iOS compatibility
+    const dataUri = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent)
+    window.open(dataUri)
+    setShowCalendarOptions(false)
+  }
 
-    // Create a temporary link and click it
-    const link = document.createElement('a')
-    link.href = url
-    link.setAttribute('download', 'phantom-of-the-opera.ics')
-    link.style.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-
-    // Cleanup
-    setTimeout(() => {
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
-    }, 100)
+  const addToCalendar = () => {
+    setShowCalendarOptions(true)
   }
 
   return (
@@ -220,6 +226,24 @@ export default function Home() {
         <button className="music-btn" onClick={playMusic}>
           🎵 Tap to Play Music
         </button>
+      )}
+
+      {/* Calendar Options Modal */}
+      {showCalendarOptions && (
+        <div className="calendar-modal-overlay" onClick={() => setShowCalendarOptions(false)}>
+          <div className="calendar-modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Add to Calendar</h3>
+            <button className="calendar-option-btn" onClick={addToGoogleCalendar}>
+              Google Calendar
+            </button>
+            <button className="calendar-option-btn" onClick={addToAppleCalendar}>
+              Apple Calendar
+            </button>
+            <button className="calendar-cancel-btn" onClick={() => setShowCalendarOptions(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
       )}
     </>
   )
